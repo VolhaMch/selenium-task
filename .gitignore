@@ -1,0 +1,7 @@
+pytest.ini
+.env
+/venv
+.pytest_cache/
+tests/.pytest_cache/
+.idea/
+
