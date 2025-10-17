@@ -1,6 +1,9 @@
+import random
+
 import allure
 import pytest
 from faker import Faker
+from selenium.webdriver.support.wait import WebDriverWait
 
 from pages.DemoQA.base_page import DemoQAMainPage
 from utils.config import DemoQABasePageConfig
@@ -56,3 +59,17 @@ def fake_data(faker):
 @pytest.fixture()
 def invalid_faked_data(faker):
     return generate_invalid_fake_data(faker)
+
+
+@pytest.fixture()
+def random_state_city():
+    state_city_dict = {
+        "NCR": ["Delhi", "Gurgaon", "Noida"],
+        "Uttar Pradesh": ["Agra", "Lucknow", "Merrut"],
+        "Haryana": ["Karnal", "Panipat"],
+        "Rajasthan": ["Jaipur", "Jaiselmer"]
+    }
+
+    state = random.choice(list(state_city_dict.keys()))
+    city = random.choice(state_city_dict[state])
+    return state, city

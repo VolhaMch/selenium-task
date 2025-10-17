@@ -63,11 +63,8 @@ class DemoQAMainPage:
 
 
     def choose_dropdown_value(self, dropdown_locator, value, type):
-        # create locator
         element_locator = DemoQAMainPage.get_state_city_locator(value)
-        # dropdown click
         WebDriverWait(self.driver, self.timeout).until(EC.element_to_be_clickable(dropdown_locator)).click()
-    #     element click
         WebDriverWait(self.driver, self.timeout).until(EC.visibility_of_element_located(
             element_locator)).click()
         logging.info(f"Send {type}: {value}")
