@@ -29,7 +29,7 @@ class DemoQAMainPage:
     REQUIRED_FIELDS = [FIRST_NAME_FIELD, LAST_NAME_FIELD, MOBILE_NUMBER, FEMALE_RADIO, MALE_RADIO, OTHER_RADIO]
 
 
-    def __init__(self, driver, timeout=5):
+    def __init__(self, driver, timeout=15):
         self.driver = driver
         self.timeout = timeout
 
@@ -96,10 +96,17 @@ class DemoQAMainPage:
             )
             logging.info('Check that form was fulfilled with invalid data and iframe has not appeared')
 
-
     def check_field_contains_invalid_value(self, locator):
-        email_field = WebDriverWait(self.driver, self.timeout).until(EC.visibility_of_element_located(locator))
-        actual_border_color = email_field.value_of_css_property("border-color")
-        r, g, b = map(int, actual_border_color.strip().replace('rgb(', '').replace(')', '').split(','))
-        assert r > g and r > b, f"Expected red border color, but got: {actual_border_color}"
-        logging.info(f'Confirm the following field borders are red{locator[1]}')
+        WebDriverWait(self.driver, self.timeout, poll_frequency=0.2).until(lambda d: self._border_is_red(locator))
+        logging.info(f'Confirmed red border for field: {locator[1]}')
+
+    def _border_is_red(self, locator):
+        try:
+            element = self.driver.find_element(*locator)
+            color = element.value_of_css_property("border-color")
+            r, g, b = map(int, color.strip().replace('rgb(', '').replace(')', '').split(','))
+            return r > g and r > b
+        except Exception as e:
+            logging.debug(f"Waiting for border to turn red, but got: {e}")
+            return False
+

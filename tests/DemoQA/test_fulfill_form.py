@@ -9,8 +9,11 @@ from pages.DemoQA.base_page import DemoQAMainPage
 
 class TestFulfillFormPositive:
 
+    @pytest.mark.parametrize("state_name, city_name",
+                             [("Haryana", "Karnal"), ("NCR", "Delhi"), ("Uttar Pradesh", "Agra"),
+                              ("Rajasthan", "Jaipur")])
     @allure.description('Fulfill the form with valid data')
-    def test_fulfill_form(self, demoqa_page, fake_data):
+    def test_fulfill_form(self, demoqa_page, fake_data, state_name, city_name):
         page = demoqa_page
         with allure.step("Fill in first name"):
             page.fill_field(DemoQAMainPage.FIRST_NAME_FIELD, fake_data['first_name'], 'first name')
@@ -36,9 +39,9 @@ class TestFulfillFormPositive:
         with allure.step("Scroll down"):
             page.scroll_to_element(DemoQAMainPage.SUBMIT_BUTTON)
         with allure.step("Choose state"):
-            page.choose_dropdown_value(DemoQAMainPage.STATE_DROPDOWN, 'Haryana', 'state')
+            page.choose_dropdown_value(DemoQAMainPage.STATE_DROPDOWN, state_name, 'state')
         with allure.step("Choose city"):
-            page.choose_dropdown_value(DemoQAMainPage.CITY_DROPDOWN, 'Karnal', 'city')
+            page.choose_dropdown_value(DemoQAMainPage.CITY_DROPDOWN, city_name, 'city')
         with allure.step("Click button 'Submit'"):
             page.click_button(DemoQAMainPage.SUBMIT_BUTTON, 'submit')
         with allure.step("Check form iframe appeared"):

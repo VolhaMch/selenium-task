@@ -10,7 +10,6 @@ class SteampoweredBasePageConfig:
 
 class DemoQABasePageConfig:
     BASE_PAGE_URL = 'https://demoqa.com/automation-practice-form'
-    AUTOMATION_PRACTICE_FORM_URL = 'https://demoqa.com/automation-practice-form'
 
 class SaucedemoConfig:
     LOGIN_PAGE_URL = 'https://www.saucedemo.com/'
