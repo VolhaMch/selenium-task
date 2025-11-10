@@ -61,7 +61,7 @@ class TestFulfillFormNegative:
         with allure.step("Check form iframe hasn't appeared"):
             page.check_form_not_submitted()
 
-    @pytest.mark.parametrize("invalid_symbols", [('**********'), ('+++++++++')])
+    @pytest.mark.parametrize("invalid_symbols", [('**********'), ('+++++++++'), ('========')])
     @allure.description('Fulfill the form with invalid mobile number')
     def test_fulfill_mobile_number_with_invalid_symbols(self, demoqa_page, invalid_symbols):
         page = demoqa_page
