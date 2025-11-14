@@ -4,4 +4,11 @@ pytest.ini
 .pytest_cache/
 tests/.pytest_cache/
 .idea/
-
+.flake8
+.pylintrc
+pylint.log
+report.html
+/allure-results
+/allure-report
+/assets
+.gitlab-ci.yml
